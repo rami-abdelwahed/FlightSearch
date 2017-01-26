@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flight search</title>
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+  <style>
+ .ui-autocomplete
+  {
+    position:absolute;
+    cursor:default;
+    z-index:1001 !important
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="./index.js"></script>
+</head>
+<body>
+ 
+<div class="ui-widget">
+  <form class="cmxform" id="searchForm" method="get" action="">
+    <fieldset>
+        <legend>Please enter a from, to, and date for your trip.</legend>
+
+        <label for="from">From </label>
+        <input id="from" type="text" class="required" required>
+        <label for="to">To </label>
+        <input id="to" type="text" class="required" required>
+        <label for="datepicker">Date </label>
+        <input id="datepicker" type="text" class="required" required>
+        <button class="submit" type="submit" id="search" >Search</button> 
+    </fieldset>
+  </form>
+</div>
+<div id="tabs">
+  <ul class="ui-tabs-nav">
+  </ul>
+</div>
+</body>
+</html>

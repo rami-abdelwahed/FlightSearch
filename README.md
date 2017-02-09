@@ -1,4 +1,4 @@
-# Flight Search
+# A simple Flight Search application
 
 ## Resources used:
 - Auto-complete search box with remote source

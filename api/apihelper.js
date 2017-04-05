@@ -6,7 +6,7 @@ const moment = require('moment');
 const model = require('../model/search');
 
 
-var apiHandler = function (apiUrl, onResult) {
+var apiHandler = (apiUrl, onResult) => {
     var options = {
         host: 'node.locomote.com',
         port: 80,
@@ -14,7 +14,7 @@ var apiHandler = function (apiUrl, onResult) {
         method: 'GET'
     };
 
-    http.request(options, function (res) {
+    http.request(options, (res) => {
         res.setEncoding('utf8');
         var data = '';
         res.on('data', function (chunk) {
@@ -31,6 +31,7 @@ var searchHandler = function (req, res) {
     var searchResult = {};
     var searchDate = moment(req.query.date);
     var now = moment().startOf('day');
+    //Get the +/-2 dates
     var i = 2;
     var searchDates = [];
     while (i > 0) {
@@ -40,16 +41,16 @@ var searchHandler = function (req, res) {
         }
         --i;
     }
-    apiHandler(util.format('/code-task/airlines'), function (responseData) {
+    apiHandler('/code-task/airlines', (responseData) => {
         var airlines = JSON.parse(responseData);
         searchDates.push(searchDate, searchDate.clone().add(1, 'day'), searchDate.clone().add(2, 'day'));
-        searchDates.forEach(function (date) {
-            airlines.forEach(function (airline) {
+        searchDates.forEach((date) => {
+            airlines.forEach((airline) => {
                 var apiUrl = util.format('/code-task/flight_search/%s?date=%s&from=%s&to=%s',
                     airline.code, date.format('YYYY-MM-DD'), req.query.from, req.query.to);
-                    apiHandler(apiUrl, function (responseData) {
+                    apiHandler(apiUrl, (responseData) => {
                     var arr = JSON.parse(responseData);
-                    arr.forEach(function (item) {
+                    arr.forEach((item) => {
                         var searchResultItem = new model.SearchResultItem(item);
                         if (!searchResult[date.format('YYYY-MM-DD')]) {
                             searchResult[date.format('YYYY-MM-DD')] = [];

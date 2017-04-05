@@ -16,6 +16,17 @@ function SearchResultItem(apiSearchResult) {
     this.price = parseFloat(apiSearchResult.price);
 }
 
+var sortByPrice = function (searchResult) {
+    var keys = Object.keys(searchResult);
+    for(var i = 0; i < keys.length; i++) {
+        searchResult[keys[i]].sort(function(a, b) {
+            return a.price - b.price;
+        });
+    }
+    return searchResult;
+}
+
 module.exports = {
-    SearchResultItem: SearchResultItem
+    SearchResultItem,
+    sortByPrice
 };
